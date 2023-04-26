@@ -1,50 +1,38 @@
-import React, { Component } from "react"
-import logo from "./logo.svg"
-import "./App.css"
+import React from 'react';
+import './App.css';
+import { Navbar, Analytics, Donations, Home, Login, Recipies, Signup, AddInv} from './Components';
+import { Routes, Route } from 'react-router-dom';
 
-class LambdaDemo extends Component {
-  constructor(props) {
-    super(props)
-    this.state = { loading: false, msg: null }
-  }
 
-  handleClick = api => e => {
-    e.preventDefault()
-
-    this.setState({ loading: true })
-    fetch("/.netlify/functions/" + api)
-      .then(response => response.json())
-      .then(json => this.setState({ loading: false, msg: json.msg }))
-  }
-
-  render() {
-    const { loading, msg } = this.state
-
-    return (
-      <p>
-        <button onClick={this.handleClick("hello")}>{loading ? "Loading..." : "Call Lambda"}</button>
-        <button onClick={this.handleClick("async-dadjoke")}>{loading ? "Loading..." : "Call Async Lambda"}</button>
-        <br />
-        <span>{msg}</span>
-      </p>
-    )
-  }
-}
-
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <LambdaDemo />
-        </header>
-      </div>
-    )
-  }
+const App = () => {
+	return (
+		<div className='app'>
+			<div className="navbar">
+            	<Navbar />
+        	</div>
+			<div className='main'>
+				<div className="routes">
+					<Routes>
+						<Route exact path="/Home" element={<Home />}>
+						</Route>
+						<Route exact path="/AddInv" element={<AddInv />}>
+						</Route>
+						<Route exact path="/Analytics" element={<Analytics />}>
+						</Route>
+						<Route exact path="/Donations" element={<Donations />}>
+						</Route>
+						<Route exact path="/" element={<Login />}>
+						</Route>
+						<Route exact path="/Recipies" element={<Recipies />}>
+						</Route>
+						<Route exact path="/Signup" element={<Signup />}>
+						</Route>
+						
+					</Routes>
+				</div>
+			</div>
+		</div>
+	)
 }
 
 export default App
